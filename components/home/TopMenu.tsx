@@ -18,10 +18,10 @@ const TopMenu = () => {
   // Menu items from the comment
   const menuItems = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
-    { name: "Expertise", path: "/expertise" },
+    { name: "Services", path: "/home#services" },
+    { name: "Pricing", path: "/home#pricing" },
+    { name: "Expertise", path: "/home#expertise" },
     { name: "About", path: "/about" },
-    { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },
   ];
 

@@ -31,7 +31,7 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-16 px-4 md:px-8 lg:px-16">
+    <section className="min-h-screen flex flex-col justify-center py-16 px-4 md:px-8 lg:px-16" id="services">
       <div className="container mx-auto">
         {/* Heading */}
         <div className="text-center mb-16">

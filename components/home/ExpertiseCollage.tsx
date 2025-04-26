@@ -90,7 +90,7 @@ const ExpertiseCollage: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 min-h-screen">
+    <section className="py-16 min-h-screen" id="expertise">
       <div className="container mx-auto px-4 py-8">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
           Meet our expertise to kickstart your success.
