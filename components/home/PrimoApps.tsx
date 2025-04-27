@@ -1,5 +1,5 @@
 import React from 'react';
-import {  CheckIcon  } from '@heroicons/react/24/solid';
+import {  CheckIcon, XMarkIcon  } from '@heroicons/react/24/solid';
 
 const PrimoApps = () => {
   const plans = [
@@ -12,6 +12,10 @@ const PrimoApps = () => {
         'Web app development',
         'Infrastructure management',
         'Dedicated support engineer'
+      ],
+      notIncluded: [
+        'Customization',
+        'Performance optimization'
       ]
     },
     {
@@ -23,6 +27,10 @@ const PrimoApps = () => {
         'Web app development',
         'Infrastructure management',
         'Dedicated support engineer'
+      ],
+      notIncluded: [
+        'Customization',
+        'Performance optimization'
       ]
     },
     {
@@ -36,7 +44,8 @@ const PrimoApps = () => {
         'Dedicated support engineer',
         'Customization',
         'Performance optimization'
-      ]
+      ],
+      notIncluded: []
     }
   ];
 
@@ -71,9 +80,18 @@ const PrimoApps = () => {
                     {feature}
                   </li>
                 ))}
+                {plan.notIncluded.map((feature, idx) => (
+                  <li key={idx} className="flex items-center">
+                    <XMarkIcon className="w-5 h-5 text-red-500 mr-2" />
+                    {feature}
+                  </li>
+                ))}
               </ul>
-              <button 
-                className={`w-full py-3 rounded-lg font-semibold ${
+              <a 
+                href={`https://wa.me/97451715999?text=I%20want%20to%20know%20more%20about%20your%20${plan.title}%20plan`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full py-3 rounded-lg font-semibold text-center block ${
                   index === 2 
                     ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white' 
                     : index === 1 
@@ -82,7 +100,7 @@ const PrimoApps = () => {
                 }`}
               >
                 {index === 2 ? 'Contact Us' : 'Get Started'}
-              </button>
+              </a>
             </div>
           ))}
         </div>
