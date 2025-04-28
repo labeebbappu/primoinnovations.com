@@ -53,7 +53,7 @@ const PrimoApps = () => {
     <section className="py-16 bg-gray-50" id="pricing">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Primo Apps</h2>
+          <h2 className="text-4xl font-bold mb-4">Primo Office App</h2>
           <p className="text-xl text-gray-600">
             Convert your spreadsheet workflow into a web app
           </p>
