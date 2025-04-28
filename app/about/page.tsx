@@ -2,7 +2,8 @@ import React from "react";
 import TopMenu from "@/components/home/TopMenu";
 import FootBar from "@/components/home/FootBar";
 
-import {  PuzzlePieceIcon } from "@heroicons/react/24/solid";
+import { PuzzlePieceIcon } from "@heroicons/react/24/solid";
+import TeamMembers from "@/components/about/TeamMembers";
 
 const AboutPage = async () => {
   return (
@@ -14,9 +15,8 @@ const AboutPage = async () => {
         <div className="container mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">About PRIMO</h1>
           <p className="text-xl md:text-2xl max-w-3xl">
-            We provide easy tech solutions for companies at affordable rates.
-            Our methods are straight, comfortable, and established to ensure
-            evolution and acceleration with innovation.
+            We provide easy tech solutions for companies at affordable rates. Our methods are straight, comfortable, and
+            established to ensure evolution and acceleration with innovation.
           </p>
         </div>
       </div>
@@ -26,12 +26,13 @@ const AboutPage = async () => {
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <h2 className="text-3xl font-bold mb-4">Free Consultation</h2>
-            <p className="text-lg mb-6">
-              You will get the perfect resolutions with our proficient services.
-            </p>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+            <p className="text-lg mb-6">You will get the perfect resolutions with our proficient services.</p>
+            <a
+              href="/contact"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+            >
               Contact Us Today
-            </button>
+            </a>
           </div>
           <div className="md:w-1/2 flex justify-center">
             <div className="relative w-80 h-80 rounded-full overflow-hidden bg-gray-200">
@@ -43,8 +44,8 @@ const AboutPage = async () => {
           </div>
         </div>
       </div>
- 
 
+      <TeamMembers />
       <FootBar />
     </div>
   );
