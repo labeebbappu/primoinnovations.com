@@ -1,10 +1,10 @@
 import React from "react";
-import TopMenu from "@/components/home/TopMenu";
-import Hero from "@/components/home/Hero";
-import ServicesSection from "@/components/home/ServicesSection";
-import FootBar from "@/components/home/FootBar";
-import PrimoApps from "@/components/home/PrimoApps";
-import ExpertiseCollage from "@/components/home/ExpertiseCollage";
+import TopMenu from "./TopMenu";
+import Hero from "./Hero";
+import ServicesSection from "./ServicesSection";
+import FootBar from "./FootBar";
+import PrimoApps from "./PrimoApps";
+import ExpertiseCollage from "./ExpertiseCollage";
 
 const HomePage = async () => {
   return (
