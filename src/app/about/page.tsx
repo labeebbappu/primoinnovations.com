@@ -1,9 +1,10 @@
 import React from "react";
-import TopMenu from "@/components/home/TopMenu";
-import FootBar from "@/components/home/FootBar";
-
 import { PuzzlePieceIcon } from "@heroicons/react/24/solid";
-import TeamMembers from "@/components/about/TeamMembers";
+
+import TopMenu from "../home/TopMenu";
+import FootBar from "../home/FootBar";
+
+import TeamMembers from "./TeamMembers";
 
 const AboutPage = async () => {
   return (

@@ -1,7 +1,8 @@
 import React from "react";
-import TopMenu from "@/components/home/TopMenu";
-import FootBar from "@/components/home/FootBar";
-import Hero from "@/components/contact/Hero";
+
+import TopMenu from "../home/TopMenu";
+import FootBar from "../home/FootBar";
+import Hero from "./Hero";
 
 const ContactPage = async () => {
   return (
