@@ -1,8 +1,8 @@
-import UserForm from '@/components/UserForm';
-import PostForm from '@/components/PostForm';
-import { getUsers, getPosts } from './actions';
-import UserList from '@/components/UserList';
-import PostList from '@/components/PostList';
+import UserForm from '@/app/mango/UserForm';
+import PostForm from '@/app/mango/PostForm';
+import UserList from '@/app/mango/UserList';
+import PostList from '@/app/mango/PostList';
+import { getUsers, getPosts } from '@/app/mango/actions';
 
 export default async function Mango() {
   // Server-side data fetching using our server actions
