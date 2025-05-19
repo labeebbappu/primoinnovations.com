@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from 'next/link';
-import { User } from "@/generated/prisma/client";
+import { User } from '@prisma/client';
 
 // Use Prisma's generated type with additional properties for counts
 type UserWithCounts = User & {

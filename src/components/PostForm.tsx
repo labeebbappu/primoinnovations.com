@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { createPost } from "@/app/mango/actions";
-import { User } from "@/generated/prisma/client";
+import { User } from '@prisma/client';
 
 interface PostFormProps {
   users: User[];

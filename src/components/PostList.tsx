@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { formatDistance } from "date-fns";
 import { createComment } from "@/app/mango/actions";
-import type { Post, User, Comment } from "@/generated/prisma/client";
+import type { Post, User, Comment } from '@prisma/client';
 
 type PostWithRelations = Post & {
   author: User;
