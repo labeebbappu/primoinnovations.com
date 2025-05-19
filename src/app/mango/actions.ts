@@ -117,7 +117,7 @@ export async function createUser({ email, name }: { email: string; name?: string
     });
     
     // Revalidate the home page to show the new user
-    revalidatePath('/');
+    revalidatePath('/mango');
     
     return user;
   } catch (error: unknown) {
@@ -171,7 +171,7 @@ export async function createPost({
     });
     
     // Revalidate the home page to show the new post
-    revalidatePath('/');
+    revalidatePath('/mango');
     
     return post;
   } catch (error) {
@@ -229,7 +229,7 @@ export async function createComment({
     });
     
     // Revalidate the home page to show the new comment
-    revalidatePath('/');
+    revalidatePath('/mango');
 
     return comment;
   } catch (error) {
