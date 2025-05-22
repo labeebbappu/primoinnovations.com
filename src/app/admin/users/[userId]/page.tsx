@@ -1,5 +1,6 @@
 import TopMenu from "@/app/admin/TopMenu";
 import UserDetails from "./UserDetails";
+import { AuthManage } from "./AuthManage";
 
 export default async function UserPage(props: { params: Promise<{ userId: string }> }) {
   const params = await props.params;
@@ -15,6 +16,11 @@ export default async function UserPage(props: { params: Promise<{ userId: string
 
         {/* user list here  */}
         <UserDetails userId={userId} />
+        <AuthManage userId={userId} />
+
+        <div className="h-64" >
+    
+        </div>
       </div>
     </div>
   );

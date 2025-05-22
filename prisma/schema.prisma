@@ -30,6 +30,8 @@ model Auth {
   userId    String   @unique @db.ObjectId
   email     String   @unique
   password  String
+  userRole  String   @default("user") // "user" | "admin" | "contentWriter"
+  status    String   @default("active") // "active" | "banned"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
