@@ -3,18 +3,18 @@ import { getAuthUser } from "../lib/auth";
 
 import { LoginForm } from "./LoginForm";
 
-export default function Login() {
+export default async function Login() {
+  const authUser = await getAuthUser();
 
-  const authUser = getAuthUser();
-  
-  if (!authUser) {
-    redirect("/login");
+  if (authUser) {
+    redirect("/admin/dashboard");
   }
 
-
   return (
-    <div className="min-h-screen flex items-center justify-center " >
+    <div className="min-h-screen ">
+      <div className=" mt-48">
       <LoginForm />
+      </div>
     </div>
   );
 }

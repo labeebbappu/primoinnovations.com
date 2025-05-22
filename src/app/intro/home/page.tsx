@@ -1,8 +1,8 @@
 import React from "react";
-import TopMenu from "./TopMenu";
+import TopMenu from "../TopMenu";
 import Hero from "./Hero";
 import ServicesSection from "./ServicesSection";
-import FootBar from "./FootBar";
+import FootBar from "../FootBar";
 import PrimoApps from "./PrimoApps";
 import ExpertiseCollage from "./ExpertiseCollage";
 

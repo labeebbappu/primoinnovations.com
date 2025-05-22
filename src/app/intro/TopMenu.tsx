@@ -17,12 +17,12 @@ const TopMenu = () => {
 
   // Menu items from the comment
   const menuItems = [
-    { name: "Home", path: "/" },
-    { name: "Services", path: "/home#services" },
-    { name: "Pricing", path: "/home#pricing" },
-    { name: "Expertise", path: "/home#expertise" },
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
+    { name: "Home", path: "/intro/home" },
+    { name: "Services", path: "/intro/home#services" },
+    { name: "Pricing", path: "/intro/home#pricing" },
+    { name: "Expertise", path: "/intro/home#expertise" },
+    { name: "About", path: "/intro/about" },
+    { name: "Contact", path: "/intro/contact" },
   ];
 
   return (

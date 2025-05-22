@@ -81,8 +81,9 @@ export async function getAuthUser() {
   if (!userId || typeof userId !== "string") {
     return null;
   }
-  // call update session here
-  // updateSession(userId);
 
-  return session;
+  return {
+    userId,
+    expiresAt: session.expiresAt,
+  }
 }
