@@ -39,14 +39,14 @@ export function LoginForm() {
                 id="email"
                 type="email"
                 name="email"
-                defaultValue="contact@cosdensolutions.io"
+                defaultValue="joe@jo.com"
                 placeholder="m@example.com"
                 required
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" name="password" defaultValue="12345678" required />
+              <Input id="password" type="password" name="password" defaultValue="hello" required />
             </div>
 
             

@@ -3,18 +3,13 @@
 import { z } from "zod";
 import { createSession, deleteSession, updateSession } from "../lib/auth";
 import { redirect } from "next/navigation";
-
-const testUser = {
-  id: "1",
-  email: "contact@cosdensolutions.io",
-  password: "12345678",
-};
+import prisma from "@/lib/prisma";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }).trim(),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters" })
+    .min(4, { message: "Password must be at least 4 characters" })
     .trim(),
 });
 
@@ -29,7 +24,12 @@ export async function login(prevState: unknown, formData: FormData) {
 
   const { email, password } = result.data;
 
-  if (email !== testUser.email || password !== testUser.password) {
+  const auth = await prisma.auth.findUnique({
+    where: { email },
+    include: { user: true }
+  });
+
+  if (!auth || auth.password !== password || auth.status !== "active") {
     return {
       errors: {
         email: ["Invalid email or password"],
@@ -37,7 +37,7 @@ export async function login(prevState: unknown, formData: FormData) {
     };
   }
 
-  await createSession(testUser.id);
+  await createSession(auth.userId);
 
   redirect("/admin/dashboard");
 }
