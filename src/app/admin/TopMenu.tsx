@@ -34,7 +34,7 @@ const TopMenu = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="">
-            <Link href="/dashboard">
+            <Link href="/admin/dashboard">
               <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 PRIMO Admin
               </h2>
