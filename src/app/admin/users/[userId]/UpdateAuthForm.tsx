@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,6 +17,8 @@ type UpdateAuthFormProps = {
 };
 
 export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) {
+  const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     email: auth.email || "",
@@ -37,6 +40,7 @@ export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) 
 
   // Update existing auth
   const handleUpdateAuth = async () => {
+    setIsLoadingUpdate(true);
     const dataToUpdate: AuthUpdateData = {};
 
     if (formData.email && formData.email !== auth.email) {
@@ -57,6 +61,7 @@ export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) 
 
     if (Object.keys(dataToUpdate).length === 0) {
       toast.info("No changes to update");
+      setIsLoadingUpdate(false);
       return;
     }
 
@@ -65,13 +70,17 @@ export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) 
 
       if (result.success) {
         toast.success("Authentication updated successfully");
-        router.refresh();
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
       } else {
         toast.error(result.error || "Failed to update authentication");
       }
     } catch (error: unknown) {
       console.error("Error updating auth:", error);
       toast.error("An unexpected error occurred");
+    } finally {
+      setIsLoadingUpdate(false);
     }
   };
 
@@ -80,6 +89,8 @@ export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) 
     if (!confirm("Are you sure you want to delete this authentication? This action cannot be undone.")) {
       return;
     }
+
+    setIsLoadingDelete(true);
 
     try {
       const result = await deleteAuth(auth.id);
@@ -93,6 +104,8 @@ export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) 
     } catch (error: unknown) {
       console.error("Error deleting auth:", error);
       toast.error("An unexpected error occurred");
+    } finally {
+      setIsLoadingDelete(false);
     }
   };
 
@@ -107,13 +120,7 @@ export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
           <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email address"
-          />
+          <Input id="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email address" />
         </div>
         <div>
           <Label htmlFor="password">Password</Label>
@@ -156,8 +163,12 @@ export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) 
       </div>
 
       <div className="flex space-x-2 mt-6">
-        <Button onClick={handleUpdateAuth}>Update Authentication</Button>
-        <Button variant="destructive" onClick={handleDeleteAuth}>
+        <Button onClick={handleUpdateAuth} disabled={isLoadingUpdate}>
+          {isLoadingUpdate ? <Loader2 className="animate-spin" /> : null}
+          Update Authentication
+        </Button>
+        <Button variant="destructive" onClick={handleDeleteAuth} disabled={isLoadingDelete}>
+          {isLoadingDelete ? <Loader2 className="animate-spin" /> : null}
           Delete Authentication
         </Button>
       </div>

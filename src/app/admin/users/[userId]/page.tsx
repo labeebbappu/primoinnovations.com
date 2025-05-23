@@ -1,27 +1,37 @@
 import TopMenu from "@/app/admin/TopMenu";
 import UserDetails from "./UserDetails";
 import { AuthManage } from "./AuthManage";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function UserPage(props: { params: Promise<{ userId: string }> }) {
   const params = await props.params;
   const { userId } = params;
 
   return (
-    <div className="pt-20">
+    <div className="min-h-screen bg-gray-50">
       <TopMenu />
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Users</h1>
-        </div>
+      <main className="container mx-auto px-4 py-8 pt-24">
+        <div className="flex flex-col gap-8">
+          <div className="flex justify-between items-center">
+            <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
 
-        {/* user list here  */}
-        <UserDetails userId={userId} />
-        <AuthManage userId={userId} />
+            <Button asChild variant="outline">
+              <Link href="/admin/users">Back to Users</Link>
+            </Button>
+          </div>
 
-        <div className="h-64" >
-    
+          <div className="grid gap-6">
+            <section className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+              <UserDetails userId={userId} />
+            </section>
+
+            <section className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+              <AuthManage userId={userId} />
+            </section>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

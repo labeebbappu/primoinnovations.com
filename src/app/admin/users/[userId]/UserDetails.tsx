@@ -19,10 +19,10 @@ export default async function UserDetails({ userId }: { userId: string }) {
   }
 
   return (
-    <div className="p-4 space-y-4">
+    <div className=" space-y-4">
       <Card className="shadow-sm bg-white border-0">
         <CardHeader className="bg-blue-50 border-b px-6 py-5">
-          <CardTitle className="text-xl text-blue-900">User Details</CardTitle>
+          <CardTitle className="text-xl text-blue-900">User Details </CardTitle>
         </CardHeader>
         <CardContent className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-4">
