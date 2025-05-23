@@ -1,6 +1,8 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import LogoutButton from "../login/LogoutButton";
 
 const TopMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,29 +17,26 @@ const TopMenu = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Menu items from the comment
+  // Dashboard menu items
   const menuItems = [
-    { name: "Home", path: "/" },
-    { name: "Services", path: "/home#services" },
-    { name: "Pricing", path: "/home#pricing" },
-    { name: "Expertise", path: "/home#expertise" },
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
+    { name: "Dashboard", path: "/admin/dashboard" },
+    { name: "Users", path: "/admin/users" },
+    { name: "Blogs", path: "/admin/blogs" },
   ];
 
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md" : "bg-transparent"
+        scrolled ? "bg-white shadow-md" : "bg-white border-b border-gray-200"
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="">
-            <Link href="/">
-              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                PRIMO
+            <Link href="/admin/dashboard">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                PRIMO Admin
               </h2>
             </Link>
           </div>
@@ -53,6 +52,14 @@ const TopMenu = () => {
                 {item.name}
               </Link>
             ))}
+            {/* <Link 
+              href="/login?logout=true"
+              className="relative text-red-600 hover:text-red-800 transition-colors duration-300"
+            >
+              Logout 33
+            </Link> */}
+
+            <LogoutButton className="" />
           </div>
 
           {/* Mobile Menu Button */}
@@ -100,6 +107,13 @@ const TopMenu = () => {
                 {item.name}
               </Link>
             ))}
+            <Link
+              href="/login?logout=true"
+              className="text-red-600 hover:text-red-800 hover:translate-x-2 transition-all duration-300"
+              onClick={() => setIsOpen(false)}
+            >
+              Logout
+            </Link>
           </div>
         </div>
       </div>

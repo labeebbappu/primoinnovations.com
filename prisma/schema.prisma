@@ -19,8 +19,21 @@ model User {
   name      String?
   posts     Post[]
   comments  Comment[]
+  auth      Auth?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+}
+
+model Auth {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @unique @db.ObjectId
+  email     String   @unique
+  password  String
+  userRole  String   @default("user") // "user" | "admin" | "contentWriter"
+  status    String   @default("active") // "active" | "banned"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Post {

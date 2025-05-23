@@ -15,7 +15,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle }) => {
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">{title}</h1>
             <p className="text-xl text-gray-600 leading-relaxed mb-8">{subtitle}</p>
             <a 
-              href="/contact" 
+              href="/intro/contact" 
               className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Free Consultation

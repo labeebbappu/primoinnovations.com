@@ -2,46 +2,75 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
+
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
 import { login } from "./actions";
-
-export function LoginForm() {
-  const [state, loginAction] = useActionState(login, undefined);
-
-  return (
-    <form action={loginAction} className="flex max-w-[300px] flex-col gap-2">
-      <div className="flex flex-col gap-2">
-        <input id="email" name="email" placeholder="Email"
-          defaultValue="contact@cosdensolutions.io"
-        />
-      </div>
-      {state?.errors?.email && (
-        <p className="text-red-500">{state.errors.email}</p>
-      )}
-
-      <div className="flex flex-col gap-2">
-        <input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Password"
-          defaultValue="12345678"
-        />
-      </div>
-      {state?.errors?.password && (
-        <p className="text-red-500">{state.errors.password}</p>
-      )}
-      <SubmitButton />
-      
-    </form>
-  );
-}
+import Link from "next/link";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button disabled={pending} type="submit" className="btn btn-primary">
+    <Button disabled={pending} type="submit" >
       Login
-    </button>
+    </Button>
+  );
+}
+
+export function LoginForm() {
+  const [state, loginAction] = useActionState(login, undefined);
+
+  return (
+    <Card className="mx-auto max-w-md ">
+      <CardHeader className="space-y-1">
+        <CardTitle className="text-2xl font-bold">Login</CardTitle>
+        <CardDescription>Enter your email and password to login to your account</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form action={loginAction}>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                name="email"
+                defaultValue="joe@jo.com"
+                placeholder="m@example.com"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" name="password" defaultValue="hello" required />
+            </div>
+
+            
+            <SubmitButton />
+
+            <Link
+              href="/intro/home"
+              className="relative text-gray-700 hover:text-primary transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            >
+              Home
+            </Link>
+          </div>
+        </form>
+        {state?.errors?.email && (
+          <p key="email-error" className="text-red-500">
+            Email: {state.errors.email}
+          </p>
+        )}
+        {state?.errors?.password && (
+          <p key="password-error" className="text-red-500">
+            Password: {state.errors.password}
+          </p>
+        )}
+      </CardContent>
+    </Card>
   );
 }

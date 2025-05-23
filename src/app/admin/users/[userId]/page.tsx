@@ -1,0 +1,37 @@
+import TopMenu from "@/app/admin/TopMenu";
+import UserDetails from "./UserDetails";
+import { AuthManage } from "./AuthManage";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
+export default async function UserPage(props: { params: Promise<{ userId: string }> }) {
+  const params = await props.params;
+  const { userId } = params;
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <TopMenu />
+      <main className="container mx-auto px-4 py-8 pt-24">
+        <div className="flex flex-col gap-8">
+          <div className="flex justify-between items-center">
+            <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
+
+            <Button asChild variant="outline">
+              <Link href="/admin/users">Back to Users</Link>
+            </Button>
+          </div>
+
+          <div className="grid gap-6">
+            <section className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+              <UserDetails userId={userId} />
+            </section>
+
+            <section className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+              <AuthManage userId={userId} />
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
