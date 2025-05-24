@@ -3,23 +3,24 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { Prisma } from "@prisma/client";
+import { Auth, User } from "../types";
 
 // Get user with auth information
-export async function getUserWithAuth(userId: string) {
+export async function getUserWithAuth(userId: string): Promise<[User | null, string | null]> {
   try {
     const user = await prisma.user.findUnique({
       where: { id: userId },
       include: { auth: true }
     });
-    return user;
+    return [user, null];
   } catch (error) {
     console.error('Error fetching user with auth:', error);
-    throw new Error('Failed to fetch user data');
+    return [null, 'Failed to fetch user data'];
   }
 }
 
 // Create auth for a user
-export async function createAuth(userId: string, email: string, password: string, userRole: string) {
+export async function createAuth(userId: string, email: string, password: string, userRole: string): Promise<[Auth | null, string | null]> {
   try {
     // Create auth data with type safety
     const authData: Prisma.AuthCreateInput = {
@@ -38,15 +39,15 @@ export async function createAuth(userId: string, email: string, password: string
     // Revalidate the user page
     revalidatePath(`/admin/users/${userId}`);
     
-    return { success: true, auth };
+    return [auth, null];
   } catch (error) {
     console.error('Error creating auth:', error);
-    return { success: false, error: 'Failed to create authentication' };
+    return [null, 'Failed to create authentication'];
   }
 }
 
 // Update auth
-export async function updateAuth(authId: string, data: { email?: string; password?: string; userRole?: string; status?: string }) {
+export async function updateAuth(authId: string, data: { email?: string; password?: string; userRole?: string; status?: string }): Promise<[Auth | null, string | null]> {
   try {
     // Create update data with type safety
     const updateData: Prisma.AuthUpdateInput = {};
@@ -71,15 +72,15 @@ export async function updateAuth(authId: string, data: { email?: string; passwor
       revalidatePath(`/admin/users/${userAuth.userId}`);
     }
     
-    return { success: true, auth };
+    return [auth, null];
   } catch (error) {
     console.error('Error updating auth:', error);
-    return { success: false, error: 'Failed to update authentication' };
+    return [null, 'Failed to update authentication'];
   }
 }
 
 // Delete auth
-export async function deleteAuth(authId: string) {
+export async function deleteAuth(authId: string): Promise<[boolean | null, string | null]> {
   try {
     // Get the userId before deleting to revalidate the correct path
     const userAuth = await prisma.auth.findUnique({
@@ -95,9 +96,9 @@ export async function deleteAuth(authId: string) {
       revalidatePath(`/admin/users/${userAuth.userId}`);
     }
     
-    return { success: true };
+    return [true, null];
   } catch (error) {
     console.error('Error deleting auth:', error);
-    return { success: false, error: 'Failed to delete authentication' };
+    return [null, 'Failed to delete authentication'];
   }
 }

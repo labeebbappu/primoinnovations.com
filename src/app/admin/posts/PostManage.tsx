@@ -1,0 +1,10 @@
+/*
+add post
+edit post
+delete post
+list posts 
+make post published
+use a markdown editor
+
+
+*/

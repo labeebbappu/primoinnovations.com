@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { createAuth } from "./actions";
-import { FormData } from "./types";
+import { FormData } from "../types";
 
 type CreateAuthFormProps = {
   userId: string;
@@ -42,19 +42,15 @@ export function CreateAuthForm({ userId, initialEmail }: CreateAuthFormProps) {
       return;
     }
 
-    try {
-      const result = await createAuth(userId, formData.email, formData.password, formData.userRole);
+    const [, error] = await createAuth(userId, formData.email, formData.password, formData.userRole);
 
-      if (result.success) {
-        toast.success("Authentication created successfully");
-        router.refresh();
-      } else {
-        toast.error(result.error || "Failed to create authentication");
-      }
-    } catch (error: unknown) {
-      console.error("Error creating auth:", error);
-      toast.error("An unexpected error occurred");
+    if (error) {
+      toast.error(typeof error === "string" ? error : "Failed to create authentication");
+      return;
     }
+
+    toast.success("Authentication created successfully");
+    router.refresh();
   };
 
   return (
@@ -64,13 +60,7 @@ export function CreateAuthForm({ userId, initialEmail }: CreateAuthFormProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
           <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email address"
-          />
+          <Input id="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email address" />
         </div>
         <div>
           <Label htmlFor="password">Password</Label>

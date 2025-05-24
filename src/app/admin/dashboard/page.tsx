@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getAuthUser } from "../../lib/auth";
+import { getAuthUser } from "@/app/lib/auth";
 
 // import SessionUpdater from "../login/SessionUpdater";
 import TopMenu from "@/app/admin/TopMenu";

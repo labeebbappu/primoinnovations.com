@@ -21,7 +21,7 @@ const TopMenu = () => {
   const menuItems = [
     { name: "Dashboard", path: "/admin/dashboard" },
     { name: "Users", path: "/admin/users" },
-    { name: "Blogs", path: "/admin/blogs" },
+    { name: "Posts", path: "/admin/posts" },
   ];
 
   return (

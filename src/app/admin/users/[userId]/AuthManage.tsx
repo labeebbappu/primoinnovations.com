@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { getUserWithAuth } from "./actions";
 import { toast } from "sonner";
-import { User } from "./types";
+import { User } from "../types";
 import { AuthCard, LoadingState, ErrorState } from "./AuthCard";
 import { CreateAuthForm } from "./CreateAuthForm";
 import { UpdateAuthForm } from "./UpdateAuthForm";
@@ -19,12 +19,15 @@ export function AuthManage({ userId }: { userId: string }) {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const userData = await getUserWithAuth(userId);
-        // Type assertion to ensure userData matches User type
-        setUser(userData as User);
-      } catch (error: unknown) {
-        console.error("Error fetching user:", error);
-        toast.error("Failed to load user data");
+        const [userData, error] = await getUserWithAuth(userId);
+        if (error) {
+          console.error("Error fetching user:", error);
+          toast.error(typeof error === 'string' ? error : 'Failed to load user data');
+          return;
+        }
+        if (userData) {
+          setUser(userData);
+        }
       } finally {
         setLoading(false);
       }
