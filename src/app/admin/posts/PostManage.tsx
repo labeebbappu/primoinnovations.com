@@ -12,7 +12,7 @@ export default function PostManage({ posts }: PostManageProps) {
    
 
   return (
-    <div className="space-y-8">
+    <div className="">
       
 
       <List posts={posts} />

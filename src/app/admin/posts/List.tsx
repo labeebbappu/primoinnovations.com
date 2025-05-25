@@ -9,35 +9,41 @@ type ListProps = {
 
 export default function List({ posts }: ListProps) {
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full bg-white rounded-lg overflow-hidden">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200">
-          {posts.map((post) => (
-            <tr key={post.id}>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                <Link href={`/admin/posts/${post.id}`} className="text-indigo-600 hover:text-indigo-900">
+    <div className="max-w-7xl mx-auto ">
+      <div className="grid gap-4">
+        {posts.map((post) => (
+          <div
+            key={post.id}
+            className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden"
+          >
+            <div className="p-6">
+              <div className="flex items-center justify-between">
+                <Link
+                  href={`/admin/posts/${post.id}`}
+                  className="text-xl font-semibold text-gray-900 hover:text-indigo-600 transition-colors duration-200"
+                >
                   {post.title}
                 </Link>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {post.postCategory || "Uncategorized"}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> Auther Name here </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {post.published ? "Published" : "Draft"}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <span
+                  className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                    post.published ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"
+                  }`}
+                >
+                  {post.published ? "Published" : "Draft"}
+                </span>
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-4">
+                <div className="text-sm text-gray-600">
+                  <span className="font-medium">Category:</span> {post.postCategory || "Uncategorized"}
+                </div>
+                <div className="text-sm text-gray-600">
+                  <span className="font-medium">Author:</span> Author Name here
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
