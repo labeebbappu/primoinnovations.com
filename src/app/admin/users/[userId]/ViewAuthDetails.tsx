@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Auth } from "./types";
+import { Auth } from "../types";
 
 type ViewAuthDetailsProps = {
   auth: Auth;

@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { updateAuth, deleteAuth } from "./actions";
-import { Auth, FormData, AuthUpdateData } from "./types";
+import { Auth, FormData, AuthUpdateData } from "../types";
 
 type UpdateAuthFormProps = {
   auth: Auth;
@@ -65,23 +65,19 @@ export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) 
       return;
     }
 
-    try {
-      const result = await updateAuth(auth.id, dataToUpdate);
+    const [, error] = await updateAuth(auth.id, dataToUpdate);
 
-      if (result.success) {
-        toast.success("Authentication updated successfully");
-        setTimeout(() => {
-          window.location.reload();
-        }, 100);
-      } else {
-        toast.error(result.error || "Failed to update authentication");
-      }
-    } catch (error: unknown) {
-      console.error("Error updating auth:", error);
-      toast.error("An unexpected error occurred");
-    } finally {
-      setIsLoadingUpdate(false);
+    if (error) {
+      toast.error(typeof error === "string" ? error : "Failed to update authentication");
+      return;
     }
+
+    toast.success("Authentication updated successfully");
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
+
+    setIsLoadingUpdate(false);
   };
 
   // Delete auth
@@ -92,21 +88,17 @@ export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) 
 
     setIsLoadingDelete(true);
 
-    try {
-      const result = await deleteAuth(auth.id);
+    const [, error] = await deleteAuth(auth.id);
 
-      if (result.success) {
-        toast.success("Authentication deleted successfully");
-        router.refresh();
-      } else {
-        toast.error(result.error || "Failed to delete authentication");
-      }
-    } catch (error: unknown) {
-      console.error("Error deleting auth:", error);
-      toast.error("An unexpected error occurred");
-    } finally {
-      setIsLoadingDelete(false);
+    if (error) {
+      toast.error(typeof error === "string" ? error : "Failed to delete authentication");
+      return;
     }
+
+    toast.success("Authentication deleted successfully");
+    router.refresh();
+
+    setIsLoadingDelete(false);
   };
 
   return (

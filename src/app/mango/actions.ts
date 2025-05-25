@@ -133,9 +133,9 @@ export async function createUser({ email, name }: { email: string; name?: string
 // Post actions
 export async function createPost({ 
   title, 
-  content, 
+  // content, 
   authorId, 
-  published = false 
+  // published = false 
 }: { 
   title: string; 
   content?: string; 
@@ -156,24 +156,25 @@ export async function createPost({
       throw new Error('Author not found');
     }
     
-    const post = await prisma.post.create({
-      data: {
-        title,
-        content: content || '',
-        published,
-        author: {
-          connect: { id: authorId }
-        }
-      },
-      include: {
-        author: true
-      }
-    });
+    // const post = await prisma.post.create({
+    //   data: {
+    //     title,
+    //     postCategory: 'OTHER',
+    //     content: content || '',
+    //     published,
+    //     author: {
+    //       connect: { id: authorId }
+    //     }
+    //   },
+    //   include: {
+    //     author: true
+    //   }
+    // });
     
     // Revalidate the home page to show the new post
     revalidatePath('/mango');
     
-    return post;
+    return null;
   } catch (error) {
     console.error('Error creating post:', error);
     throw error;

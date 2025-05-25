@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { getAuthUser } from "@/app/lib/auth";
 import TopMenu from "@/app/admin/TopMenu";
 import UserDetails from "./UserDetails";
 import { AuthManage } from "./AuthManage";
@@ -5,6 +7,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default async function UserPage(props: { params: Promise<{ userId: string }> }) {
+
+  const authUser = await getAuthUser();
+  if (!authUser) {
+    redirect("/login");
+  }
+
   const params = await props.params;
   const { userId } = params;
 

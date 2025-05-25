@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { createPost } from "@/app/mango/actions";
+// import { createPost } from "@/app/mango/actions";
 import { User } from '@prisma/client';
 
 interface PostFormProps {
@@ -33,12 +33,12 @@ export default function PostForm({ users }: PostFormProps) {
 
     setLoading(true);
     try {
-      await createPost({
-        title,
-        content,
-        authorId,
-        published,
-      });
+      // await createPost({
+      //   title,
+      //   content,
+      //   authorId,
+      //   published,
+      // });
 
       // Reset form
       setTitle("");

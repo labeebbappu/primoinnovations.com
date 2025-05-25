@@ -4,8 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import { getUserOne } from "../actions";
 
 export default async function UserDetails({ userId }: { userId: string }) {
-  
-  const user = await getUserOne(userId);
+  const [user, error] = await getUserOne(userId);
 
   if (!user) {
     return (
@@ -25,6 +24,13 @@ export default async function UserDetails({ userId }: { userId: string }) {
           <CardTitle className="text-xl text-blue-900">User Details </CardTitle>
         </CardHeader>
         <CardContent className="p-6 space-y-4">
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+              <strong className="font-bold">Error!</strong>
+              <span className="block sm:inline">{error.message}</span>
+            </div>
+          )}
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <h3 className="font-medium text-gray-500">Name</h3>
@@ -34,14 +40,7 @@ export default async function UserDetails({ userId }: { userId: string }) {
               <h3 className="font-medium text-gray-500">Email</h3>
               <p className="text-gray-900">{user.email}</p>
             </div>
-            <div>
-              <h3 className="font-medium text-gray-500">Posts</h3>
-              <p className="text-gray-900">{user._count.posts}</p>
-            </div>
-            <div>
-              <h3 className="font-medium text-gray-500">Comments</h3>
-              <p className="text-gray-900">{user._count.comments}</p>
-            </div>
+             
           </div>
         </CardContent>
       </Card>

@@ -11,20 +11,13 @@ import { User } from "@prisma/client";
 import { toast } from "sonner";
 import { updateUser } from "./actions";
 
-type UserWithCounts = User & {
-  _count: {
-    comments: number;
-    posts: number;
-  };
-};
-
 interface UserListProps {
-  initialUsers: UserWithCounts[];
+  initialUsers: User[];
 }
 
 export default function UserList({ initialUsers }: UserListProps) {
-  const [users, setUsers] = useState<UserWithCounts[]>(initialUsers);
-  const [selectedUser, setSelectedUser] = useState<UserWithCounts | null>(null);
+  const [users, setUsers] = useState<User[]>(initialUsers);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
