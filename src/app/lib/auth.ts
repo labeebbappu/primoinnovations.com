@@ -6,9 +6,9 @@ import { cookies } from "next/headers";
 const secretKey = process.env.SESSION_SECRET ?? "fallback_secret_key_for_development";
 const encodedKey = new TextEncoder().encode(secretKey);
 
-export async function createSession(userId: string) {
+export async function createSession(userId: string, fullName: string) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ userId, expiresAt });
+  const session = await encrypt({ userId, expiresAt, fullName });
 
   (await cookies()).set("session", session, {
     httpOnly: true,
@@ -43,6 +43,7 @@ export async function deleteSession() {
 }
 
 type SessionPayload = {
+  fullName: string;
   userId: string;
   expiresAt: Date;
 };
@@ -83,8 +84,15 @@ export async function getAuthUser() {
     return null;
   }
 
+  const fullName = session?.fullName;
+  if (fullName || typeof fullName !== "string") {
+    return null;
+  }
+
+
   return {
     userId,
+    fullName: fullName ?? "",
     expiresAt: session.expiresAt,
   }
 }

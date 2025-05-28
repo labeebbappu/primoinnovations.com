@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Primo Innovations",
-  description: "Primo Innovations - evolution and acceleration with innovation"
+  title: "Primo Innovations: Custom Software & AI Solutions",
+  description: "Primo Innovations offers affordable tech solutions, custom app development, AI/ML expertise, and corporate training to accelerate your business. Get a free consultation!"
 };
 
 export default function RootLayout({

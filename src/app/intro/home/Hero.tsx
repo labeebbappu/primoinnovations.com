@@ -24,7 +24,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle }) => {
           <div className="relative w-full md:w-1/2 h-80">
             <Image
               src="/images/home-smiling-arab-man.png"
-              alt="Smiling Arab Man"
+              alt="Business owner pleased with Primo Innovations' tech solution"
               fill
               className="object-contain"
               priority
