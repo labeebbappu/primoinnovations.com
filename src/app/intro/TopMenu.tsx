@@ -17,7 +17,7 @@ const TopMenu = () => {
 
   // Menu items from the comment
   const menuItems = [
-    { name: "Home", path: "/intro/home" },
+    { name: "Home", path: "/" },
     { name: "Services", path: "/intro/home#services" },
     { name: "Pricing", path: "/intro/home#pricing" },
     { name: "Expertise", path: "/intro/home#expertise" },
@@ -36,9 +36,9 @@ const TopMenu = () => {
           {/* Logo */}
           <div className="">
             <Link href="/">
-              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 PRIMO
-              </h2>
+              </span>
             </Link>
           </div>
 

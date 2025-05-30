@@ -35,13 +35,13 @@ interface ExpertiseCardProps {
 
 const ExpertiseCard: React.FC<ExpertiseCardProps> = ({ title, description, icon }) => {
   return (
-    <div className=" p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+    <li className=" p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
       <div className="flex items-center mb-4">
         <div className="mr-4 text-primary-600 dark:text-primary-400">{icon}</div>
         <h3 className="text-xl font-bold">{title}</h3>
       </div>
-      <p className="">{description}</p>
-    </div>
+      <p >{description}</p>
+    </li>
   );
 };
 
@@ -49,42 +49,42 @@ const ExpertiseCollage: React.FC = () => {
   const expertiseItems = [
     {
       title: "Data Modeling",
-      description: "Optimize your data structure",
+      description: "Optimize your data structure for efficient data management",
       icon: <AcademicCapIcon className="w-8 h-8" />,
     },
     {
       title: "Cloud Computing",
-      description: "Scalable, secure cloud solutions",
+      description: "Scalable, secure cloud solutions for your business",
       icon: <CloudIcon className="w-8 h-8" />,
     },
     {
       title: "Reverse Engineering",
-      description: "Pioneering the reverse path",
+      description: "Pioneering the reverse path to your business",
       icon: <ArrowPathIcon className="w-8 h-8" />,
     },
     {
       title: "Problem Solving",
-      description: "Solutions to complex challenges",
+      description: "Solutions to complex challenges with our expertise",
       icon: <PuzzlePieceIcon className="w-8 h-8" />,
     },
     {
-      title: "Minimal",
-      description: "Less input solutions",
+      title: "Minimal Interation",
+      description: "Less input solutions for efficient operations",
       icon: <MinusCircleIcon className="w-8 h-8" />,
     },
     {
-      title: "Complex",
-      description: "Sensitive Data Handling",
+      title: "Complex Data",
+      description: "Sensitive Data Handling with our expertise",
       icon: <ShieldExclamationIcon className="w-8 h-8" />,
     },
     {
       title: "Geo Programming",
-      description: "Location-based solutions",
+      description: "Location-based solutions for real-time operations insights",
       icon: <MapPinIcon className="w-8 h-8" />,
     },
     {
       title: "Innovative",
-      description: "Tailored cutting-edge solutions",
+      description: "Tailored cutting-edge solutions for your business",
       icon: <LightBulbIcon className="w-8 h-8" />,
     },
   ];
@@ -93,10 +93,10 @@ const ExpertiseCollage: React.FC = () => {
     <section className="py-16 min-h-screen" id="expertise">
       <div className="container mx-auto px-4 py-8">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-          Meet our expertise to kickstart your success.
+        Our Proficient Tech Services for Perfect Resolutions.
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {expertiseItems.map((item, index) => (
             <ExpertiseCard
               key={index}
@@ -106,7 +106,7 @@ const ExpertiseCollage: React.FC = () => {
               delay={index}
             />
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

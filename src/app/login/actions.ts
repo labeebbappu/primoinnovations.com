@@ -7,10 +7,7 @@ import prisma from "@/lib/prisma";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }).trim(),
-  password: z
-    .string()
-    .min(4, { message: "Password must be at least 4 characters" })
-    .trim(),
+  password: z.string().min(4, { message: "Password must be at least 4 characters" }).trim(),
 });
 
 export async function login(prevState: unknown, formData: FormData) {
@@ -26,7 +23,7 @@ export async function login(prevState: unknown, formData: FormData) {
 
   const auth = await prisma.auth.findUnique({
     where: { email },
-    include: { user: true }
+    include: { user: true },
   });
 
   if (!auth || auth.password !== password || auth.status !== "active") {
@@ -37,7 +34,10 @@ export async function login(prevState: unknown, formData: FormData) {
     };
   }
 
-  await createSession(auth.userId);
+  const userId = auth.userId;
+  const fullName = auth?.user?.name || "";
+
+  await createSession(userId, fullName);
 
   redirect("/admin/dashboard");
 }

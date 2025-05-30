@@ -13,7 +13,7 @@ export default async function Dashboard() {
 
   // await updateSessionAction();
 
-  const authUserName = authUser?.userId || "Guest";
+  const authUserName = authUser?.fullName || "No Name";
 
   // Convert expiresAt to a string if it exists
   const expiresAtString = authUser.expiresAt ? authUser.expiresAt.toString() : "";
@@ -31,7 +31,7 @@ export default async function Dashboard() {
           )}
         </div>
 
-        <p>Welcome, {authUserName}!</p>
+        <p>Welcome {authUserName}</p>
 
         <pre className="mt-4 p-4 bg-gray-100 rounded-md overflow-auto">
           <code>{JSON.stringify(authUser, null, 2)}</code>
