@@ -1,6 +1,6 @@
 
 # SEO TODOs
-- [ ] Add primary and secondary keywords to the page
+- [x] Add primary and secondary keywords to the page
     ### keywords
     - custom app development Doha
     - custom app development Qatar
