@@ -11,8 +11,8 @@ const HomePage = async () => {
     <div className="min-h-screen">
       <TopMenu />
       <Hero 
-        title="We provide AI solutions for companies at affordable rates."
-        subtitle="Our methods are straight, comfortable, and established to ensure evolution and acceleration with innovation."
+        title="Leading AI App Development in Doha, Qatar - Innovative Solutions"
+        subtitle="Expert AI app development services in Qatar, delivering cutting-edge solutions that drive innovation and business growth. Our proven methods ensure successful digital transformation for companies across Doha."
       />
       <ServicesSection />
       <PrimoApps />
