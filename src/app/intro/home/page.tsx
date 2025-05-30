@@ -11,7 +11,7 @@ const HomePage = async () => {
     <div className="min-h-screen">
       <TopMenu />
       <Hero 
-        title="We provide easy tech solutions for companies at affordable rates."
+        title="We provide AI solutions for companies at affordable rates."
         subtitle="Our methods are straight, comfortable, and established to ensure evolution and acceleration with innovation."
       />
       <ServicesSection />

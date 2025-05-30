@@ -1,0 +1,10 @@
+# robots.txt
+# Allow all web crawlers to access the site
+User-agent: *
+Allow: /
+
+# Deny access to admin directory
+Disallow: /admin
+
+# Sitemap
+Sitemap: https://primoinnovations.com/sitemap.xml
