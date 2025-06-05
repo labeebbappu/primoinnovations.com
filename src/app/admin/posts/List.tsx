@@ -9,34 +9,30 @@ type ListProps = {
 
 export default function List({ posts }: ListProps) {
   return (
-    <div className="max-w-7xl mx-auto ">
+    <div className="max-w-7xl mx-auto">
       <div className="grid gap-4">
         {posts.map((post) => (
           <div
             key={post.id}
-            className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden"
+            className="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-200"
           >
-            <div className="p-6">
+            <div className="card-body">
               <div className="flex items-center justify-between">
                 <Link
                   href={`/admin/posts/${post.id}`}
-                  className="text-xl font-semibold text-gray-900 hover:text-indigo-600 transition-colors duration-200"
+                  className="card-title text-primary hover:text-primary-focus transition-colors duration-200"
                 >
                   {post.title}
                 </Link>
-                <span
-                  className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                    post.published ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"
-                  }`}
-                >
+                <div className="badge badge-lg" data-theme={post.published ? "success" : "warning"}>
                   {post.published ? "Published" : "Draft"}
-                </span>
+                </div>
               </div>
               <div className="mt-4 grid grid-cols-2 gap-4">
-                <div className="text-sm text-gray-600">
+                <div className="text-base-content/70">
                   <span className="font-medium">Category:</span> {post.postCategory || "Uncategorized"}
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-base-content/70">
                   <span className="font-medium">Author:</span> Author Name here
                 </div>
               </div>

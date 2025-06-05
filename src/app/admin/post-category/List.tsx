@@ -22,25 +22,24 @@ export default function ListCategories({ categories }: ListCategoriesProps) {
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white rounded-lg overflow-hidden">
-        <thead className="bg-gray-50">
+      <table className="table table-zebra">
+        <thead>
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Created At
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            <th>Name</th>
+            <th>Created At</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200">
+        <tbody>
           {categories.map((category) => (
             <tr key={category.id}>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{category.name}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {new Date(category.createdAt).toLocaleDateString()}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <button onClick={() => handleDelete(category.id)} className="text-red-600 hover:text-red-900">
+              <td>{category.name}</td>
+              <td>{new Date(category.createdAt).toLocaleDateString()}</td>
+              <td>
+                <button 
+                  onClick={() => handleDelete(category.id)} 
+                  className="btn btn-outline btn-sm"
+                >
                   Delete
                 </button>
               </td>

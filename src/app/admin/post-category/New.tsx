@@ -30,15 +30,22 @@ export default function NewCategory() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter category name"
-          className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="input input-bordered flex-1"
           required
         />
         <button
           type="submit"
           disabled={isSubmitting}
-          className="px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 disabled:bg-blue-300"
+          className="btn btn-primary "
         >
-          {isSubmitting ? "Adding..." : "Add Category"}
+          {isSubmitting ? (
+            <>
+              <span className="loading loading-spinner"></span>
+              Adding...
+            </>
+          ) : (
+            "Add Category"
+          )}
         </button>
       </div>
     </form>

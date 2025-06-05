@@ -33,7 +33,7 @@ export default async function Dashboard() {
 
         <p>Welcome {authUserName}</p>
 
-        <pre className="mt-4 p-4 bg-gray-100 rounded-md overflow-auto">
+        <pre className="mt-4 p-4 rounded-md overflow-auto">
           <code>{JSON.stringify(authUser, null, 2)}</code>
         </pre>
         {/* <SessionUpdater /> */}

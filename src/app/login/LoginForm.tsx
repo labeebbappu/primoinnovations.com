@@ -2,12 +2,6 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-
 import { login } from "./actions";
 import Link from "next/link";
 
@@ -15,9 +9,17 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button disabled={pending} type="submit" >
-      Login
-    </Button>
+    <button 
+      className="btn btn-primary w-full" 
+      disabled={pending} 
+      type="submit"
+    >
+      {pending ? (
+        <span className="loading loading-spinner loading-sm"></span>
+      ) : (
+        "Login"
+      )}
+    </button>
   );
 }
 
@@ -25,52 +27,66 @@ export function LoginForm() {
   const [state, loginAction] = useActionState(login, undefined);
 
   return (
-    <Card className="mx-auto max-w-md ">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Login</CardTitle>
-        <CardDescription>Enter your email and password to login to your account</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form action={loginAction}>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                defaultValue="joe@jo.com"
-                placeholder="m@example.com"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" name="password" defaultValue="hello" required />
-            </div>
-
+    <div className="hero min-h-screen bg-base-200">
+      <div className="hero-content flex-col">
+        <div className="card w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card-body">
+            <h1 className="text-2xl font-bold text-center">Login</h1>
+            <p className="text-center text-base-content/70">Enter your email and password to login to your account</p>
             
-            <SubmitButton />
+            <form action={loginAction} className="space-y-4">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  defaultValue="joe@jo.com"
+                  placeholder="m@example.com"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  defaultValue="hello"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
 
-            <Link
-              href="/intro/home"
-              className="relative text-gray-700 hover:text-primary transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-            >
-              Home
-            </Link>
+              <SubmitButton />
+
+              <div className="text-center mt-4">
+                <Link
+                  href="/intro/home"
+                  className="link link-primary hover:link-secondary"
+                >
+                  Home
+                </Link>
+              </div>
+            </form>
+
+            {state?.errors?.email && (
+              <div className="alert alert-error mt-4">
+                <span>Email: {state.errors.email}</span>
+              </div>
+            )}
+            {state?.errors?.password && (
+              <div className="alert alert-error mt-4">
+                <span>Password: {state.errors.password}</span>
+              </div>
+            )}
           </div>
-        </form>
-        {state?.errors?.email && (
-          <p key="email-error" className="text-red-500">
-            Email: {state.errors.email}
-          </p>
-        )}
-        {state?.errors?.password && (
-          <p key="password-error" className="text-red-500">
-            Password: {state.errors.password}
-          </p>
-        )}
-      </CardContent>
-    </Card>
+        </div>
+      </div>
+    </div>
   );
 }
