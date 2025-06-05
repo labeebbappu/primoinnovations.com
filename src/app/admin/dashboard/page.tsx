@@ -13,7 +13,7 @@ export default async function Dashboard() {
 
   // await updateSessionAction();
 
-  const authUserName = authUser?.fullName || "No Name";
+  const authUserName = authUser.fullName || "No Name";
 
   // Convert expiresAt to a string if it exists
   const expiresAtString = authUser.expiresAt ? authUser.expiresAt.toString() : "";
