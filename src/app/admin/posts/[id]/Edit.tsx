@@ -7,12 +7,14 @@ import { getPost, updatePost, deletePost } from '../actions';
 
 export default function EditPost({ id }: { id: string }) {
   const router = useRouter();
+
   const [post, setPost] = useState<Post | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     title: '',
+    blogUrl: '',
     content: '',
     postCategory: '',
     published: false
@@ -27,6 +29,7 @@ export default function EditPost({ id }: { id: string }) {
         setPost(fetchedPost);
         setFormData({
           title: fetchedPost.title,
+          blogUrl: fetchedPost.blogUrl || '',
           content: fetchedPost.content || '',
           postCategory: fetchedPost.postCategory ?? '',
           published: fetchedPost.published
@@ -86,6 +89,20 @@ export default function EditPost({ id }: { id: string }) {
           type="text"
           id="title"
           value={formData.title}
+          onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="blogUrl" className="block text-sm font-medium text-gray-700">
+          Blog URL
+        </label>
+        <input
+          type="text"
+          id="blogUrl"
+          value={formData.blogUrl}
           onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           required

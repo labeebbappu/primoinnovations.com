@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Post, PostCategory } from "@prisma/client";
 import { createPost, updatePost } from "./actions";
 import { toast } from "sonner";
 import dynamic from "next/dynamic";
 import type { MDEditorProps } from "@uiw/react-md-editor";
+import { titleToUrl } from "./helps";
+
 
 const MDEditor = dynamic<MDEditorProps>(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -17,9 +19,12 @@ type NewProps = {
 };
 
 export default function New({ categories, currentId, editingPost, onCancel }: NewProps) {
+
   const [title, setTitle] = useState(editingPost?.title || "");
   const [content, setContent] = useState(editingPost?.content || "");
   const [category, setCategory] = useState(editingPost?.postCategory || "");
+  const [blogUrl, setBlogUrl] = useState(editingPost?.blogUrl || "");
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,6 +68,12 @@ export default function New({ categories, currentId, editingPost, onCancel }: Ne
     }
   };
 
+  useEffect(() => {
+    if (title) {
+      setBlogUrl(titleToUrl(title));
+    }
+  }, [title]);
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <input
@@ -85,6 +96,14 @@ export default function New({ categories, currentId, editingPost, onCancel }: Ne
           </option>
         ))}
       </select>
+      <input
+        type="text"
+        value={blogUrl}
+        onChange={(e) => setBlogUrl(e.target.value)}
+        placeholder="blog url"
+        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required
+      />
       <div data-color-mode="light">
         <MDEditor
           value={content}
