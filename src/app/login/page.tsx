@@ -11,8 +11,8 @@ export default async function Login() {
   }
 
   return (
-    <div className="min-h-screen ">
-      <div className=" mt-48">
+    <div className=" ">
+      <div className="">
       <LoginForm />
       </div>
     </div>

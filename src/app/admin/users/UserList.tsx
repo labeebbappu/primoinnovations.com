@@ -1,10 +1,5 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import * as Dialog from "@radix-ui/react-dialog";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import Link from "next/link";
 import { User } from "@prisma/client";
@@ -36,101 +31,123 @@ export default function UserList({ initialUsers }: UserListProps) {
       setIsUpdating(false);
     }
   };
+
   return (
-    <Card className="shadow-sm bg-white overflow-hidden border-0 pt-0">
-      <CardHeader className="bg-blue-50 border-b px-6 py-5 rounded-none">
-        <CardTitle className="text-xl text-blue-900">Users</CardTitle>
-      </CardHeader>
-      <CardContent className="p-6">
+    <div className="card bg-base-100 shadow-sm">
+      <div className="card-header bg-primary/10 p-6">
+        <h2 className="card-title text-xl">Users</h2>
+      </div>
+      <div className="card-body p-6">
         {initialUsers.length === 0 ? (
-          <div className="text-center py-10 text-gray-500 italic">No users found. Create your first user!</div>
+          <div className="text-center py-10 text-base-content/70 italic">No users found. Create your first user!</div>
         ) : (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {initialUsers.map((user) => (
-                <TableRow key={user.id} className="hover:bg-blue-50 transition-colors cursor-pointer">
-                  <TableCell className="font-medium">
-                    <Link
-                      href={`/admin/users/${user.id}`}
-                      className="text-blue-600 hover:text-blue-800 transition-colors"
-                    >
-                      {user.name || "No name"}
-                    </Link>
-                  </TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>
-                    <Dialog.Root open={isEditDialogOpen && selectedUser?.id === user.id} onOpenChange={(open: boolean) => {
-                      setIsEditDialogOpen(open);
-                      if (!open) setSelectedUser(null);
-                    }}>
-                      <Dialog.Trigger asChild>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setSelectedUser(user)}
-                        >
-                          Edit
-                        </Button>
-                      </Dialog.Trigger>
-                      <Dialog.Portal>
-                        <Dialog.Content className="fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
-                          <Dialog.Title className="text-[17px] font-medium mb-4">Edit User</Dialog.Title>
-                        <form
-                          onSubmit={(e) => {
-                            e.preventDefault();
-                            const formData = new FormData(e.currentTarget);
-                            handleUpdateUser(user.id, {
-                              name: formData.get('name') as string,
-                              email: formData.get('email') as string,
-                            });
-                          }}
-                          className="space-y-4"
-                        >
-                          <div className="space-y-2">
-                            <label htmlFor="name" className="text-sm font-medium">Name</label>
-                            <Input
-                              id="name"
-                              name="name"
-                              defaultValue={user.name || ''}
-                              required
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <label htmlFor="email" className="text-sm font-medium">Email</label>
-                            <Input
-                              id="email"
-                              name="email"
-                              type="email"
-                              defaultValue={user.email}
-                              required
-                            />
-                          </div>
-                          <div className="mt-6 flex justify-end gap-4">
-                            <Dialog.Close asChild>
-                              <Button type="button" variant="outline">Cancel</Button>
-                            </Dialog.Close>
-                            <Button type="submit" disabled={isUpdating}>
-                              {isUpdating ? 'Updating...' : 'Update User'}
-                            </Button>
-                          </div>
-                        </form>
-                        </Dialog.Content>
-                      </Dialog.Portal>
-                    </Dialog.Root>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <div className="overflow-x-auto">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {initialUsers.map((user) => (
+                  <tr key={user.id} className="hover:bg-base-200 transition-colors">
+                    <td className="font-medium">
+                      <Link
+                        href={`/admin/users/${user.id}`}
+                        className="link link-primary hover:link-primary-focus"
+                      >
+                        {user.name || "No name"}
+                      </Link>
+                    </td>
+                    <td>{user.email}</td>
+                    <td>
+                      <button
+                        className="btn btn-sm btn-outline"
+                        onClick={() => {
+                          setSelectedUser(user);
+                          setIsEditDialogOpen(true);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+
+      {/* Edit User Modal */}
+      <dialog className={`modal ${isEditDialogOpen ? 'modal-open' : ''}`}>
+        <div className="modal-box">
+          <h3 className="font-bold text-lg mb-4">Edit User</h3>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              handleUpdateUser(selectedUser!.id, {
+                name: formData.get('name') as string,
+                email: formData.get('email') as string,
+              });
+            }}
+            className="space-y-4"
+          >
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                defaultValue={selectedUser?.name || ''}
+                required
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                defaultValue={selectedUser?.email}
+                required
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="modal-action">
+              <button
+                type="button"
+                className="btn btn-ghost"
+                onClick={() => {
+                  setIsEditDialogOpen(false);
+                  setSelectedUser(null);
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isUpdating}
+              >
+                {isUpdating ? 'Updating...' : 'Update User'}
+              </button>
+            </div>
+          </form>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button onClick={() => {
+            setIsEditDialogOpen(false);
+            setSelectedUser(null);
+          }}>close</button>
+        </form>
+      </dialog>
+    </div>
   );
 }

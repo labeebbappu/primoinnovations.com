@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Post, PostCategory } from "@prisma/client";
 import { createPost, updatePost } from "./actions";
 import { toast } from "sonner";
 import dynamic from "next/dynamic";
 import type { MDEditorProps } from "@uiw/react-md-editor";
+import { titleToUrl } from "./helps";
+
 
 const MDEditor = dynamic<MDEditorProps>(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -17,9 +19,12 @@ type NewProps = {
 };
 
 export default function New({ categories, currentId, editingPost, onCancel }: NewProps) {
+
   const [title, setTitle] = useState(editingPost?.title || "");
   const [content, setContent] = useState(editingPost?.content || "");
   const [category, setCategory] = useState(editingPost?.postCategory || "");
+  const [blogUrl, setBlogUrl] = useState(editingPost?.blogUrl || "");
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,29 +68,64 @@ export default function New({ categories, currentId, editingPost, onCancel }: Ne
     }
   };
 
+  useEffect(() => {
+    if (title) {
+      setBlogUrl(titleToUrl(title));
+    }
+  }, [title]);
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Post title"
-        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        required
-      />
-      <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        <option value="">Select Category</option>
-        {categories.map((cat) => (
-          <option key={cat.id} value={cat.name}>
-            {cat.name}
-          </option>
-        ))}
-      </select>
-      <div data-color-mode="light">
+    <form onSubmit={handleSubmit} className="card bg-base-100 shadow-xl p-6 space-y-4">
+      <div className="form-control w-full">
+        <label className="label">
+          <span className="label-text">Post Title</span>
+        </label>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter post title"
+          className="input input-bordered w-full"
+          required
+        />
+      </div>
+
+      <div className="form-control w-full">
+        <label className="label">
+          <span className="label-text">Category</span>
+        </label>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="select select-bordered w-full"
+        >
+          <option value="">Select Category</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.name}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-control w-full">
+        <label className="label">
+          <span className="label-text">Blog URL</span>
+        </label>
+        <input
+          type="text"
+          value={blogUrl}
+          onChange={(e) => setBlogUrl(e.target.value)}
+          placeholder="Enter blog URL"
+          className="input input-bordered w-full"
+          required
+        />
+      </div>
+
+      <div className="form-control w-full" data-color-mode="light">
+        <label className="label">
+          <span className="label-text">Content</span>
+        </label>
         <MDEditor
           value={content}
           onChange={(val: string | undefined) => setContent(val || "")}
@@ -93,20 +133,30 @@ export default function New({ categories, currentId, editingPost, onCancel }: Ne
           height={400}
         />
       </div>
-      <div className="space-x-4">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 disabled:bg-blue-300"
-        >
-          {isSubmitting ? "Saving..." : editingPost ? "Update Post" : "Create Post"}
-        </button>
+
+      <div className="flex gap-4 justify-end">
         <button
           type="button"
           onClick={onCancel}
-          className="px-6 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300"
+          className="btn btn-ghost"
         >
           Cancel
+        </button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="btn btn-primary"
+        >
+          {isSubmitting ? (
+            <>
+              <span className="loading loading-spinner"></span>
+              Saving...
+            </>
+          ) : editingPost ? (
+            "Update Post"
+          ) : (
+            "Create Post"
+          )}
         </button>
       </div>
     </form>

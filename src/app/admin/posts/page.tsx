@@ -23,14 +23,15 @@ export default async function PostPage() {
           <h1 className="text-2xl font-bold">Posts </h1>
         </div>
         <div className="flex mb-4">
-          <Link href="/admin/posts/new" className=" bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+          <Link href="/admin/posts/new" 
+          className="btn btn-primary btn-outline">
             Create Posts
           </Link>
 
           <Link
             href="/admin/post-category"
-            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2"
-          >
+            className="btn btn-primary btn-outline ml-2">
+          
             Posts Categories
           </Link>
         </div>
