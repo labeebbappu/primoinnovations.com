@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { User } from "@prisma/client";
+import { User } from "@/app/admin/users/types";
 import { toast } from "sonner";
 import { updateUser } from "./actions";
 
@@ -41,28 +41,35 @@ export default function UserList({ initialUsers }: UserListProps) {
         {initialUsers.length === 0 ? (
           <div className="text-center py-10 text-base-content/70 italic">No users found. Create your first user!</div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {initialUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-base-200 transition-colors">
-                    <td className="font-medium">
+          <div className="space-y-4">
+            {initialUsers.map((user) => (
+              <div key={user.id} className="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+                <div className="card-body p-4">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex-1">
                       <Link
                         href={`/admin/users/${user.id}`}
-                        className="link link-primary hover:link-primary-focus"
+                        className="link link-primary hover:link-primary-focus text-lg font-medium"
                       >
                         {user.name || "No name"}
                       </Link>
-                    </td>
-                    <td>{user.email}</td>
-                    <td>
+                      <p className="text-base-content/70 mt-1">{user.email}</p>
+                    </div>
+                    
+                    <div className="flex flex-col items-end gap-2">
+                      <div className="flex gap-2">
+                        {user.auth ? (
+                          <>
+                            <span className="badge badge-sm capitalize">{user.auth.userRole}</span>
+                            <span className={`badge badge-sm ${user.auth.status === 'active' ? 'badge-success' : 'badge-error'}`}>
+                              {user.auth.status}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="badge badge-sm badge-ghost">No Auth</span>
+                        )}
+                      </div>
+                      
                       <button
                         className="btn btn-sm btn-outline"
                         onClick={() => {
@@ -72,11 +79,11 @@ export default function UserList({ initialUsers }: UserListProps) {
                       >
                         Edit
                       </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

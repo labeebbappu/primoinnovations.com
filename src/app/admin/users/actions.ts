@@ -33,6 +33,7 @@ export async function getUsers() : Promise<[User[] | null, Error | null]> {
     const users = await prisma.user.findMany({
       include: {
         posts: true,
+        auth: true,
         _count: {
           select: { comments: true, posts: true },
         },

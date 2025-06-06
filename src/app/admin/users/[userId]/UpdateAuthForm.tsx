@@ -2,10 +2,6 @@
 
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { updateAuth, deleteAuth } from "./actions";
@@ -102,68 +98,91 @@ export function UpdateAuthForm({ auth, onViewModeToggle }: UpdateAuthFormProps) 
   };
 
   return (
-    <>
-      <div className="flex justify-end mb-4">
-        <Button variant="outline" onClick={onViewModeToggle}>
-          View Details
-        </Button>
-      </div>
+    <div className="card bg-base-100 shadow-xl">
+      <div className="card-body">
+        <div className="flex justify-end mb-4">
+          <button className="btn btn-outline" onClick={onViewModeToggle}>
+            View Details
+          </button>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email address" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Email</span>
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email address"
+              className="input input-bordered w-full"
+            />
+          </div>
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="New password (leave empty to keep current)"
+              className="input input-bordered w-full"
+            />
+          </div>
         </div>
-        <div>
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="New password (leave empty to keep current)"
-          />
-        </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <Label htmlFor="userRole">Role</Label>
-          <Select value={formData.userRole} onValueChange={(value) => handleSelectChange("userRole", value)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select role" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="admin">Admin</SelectItem>
-              <SelectItem value="contentWriter">Content Writer</SelectItem>
-            </SelectContent>
-          </Select>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Role</span>
+            </label>
+            <select
+              className="select select-bordered w-full"
+              value={formData.userRole}
+              onChange={(e) => handleSelectChange("userRole", e.target.value)}
+            >
+              <option value="admin">Admin</option>
+              <option value="contentWriter">Content Writer</option>
+            </select>
+          </div>
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Status</span>
+            </label>
+            <select
+              className="select select-bordered w-full"
+              value={formData.status}
+              onChange={(e) => handleSelectChange("status", e.target.value)}
+            >
+              <option value="active">Active</option>
+              <option value="banned">Banned</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <Label htmlFor="status">Status</Label>
-          <Select value={formData.status} onValueChange={(value) => handleSelectChange("status", value)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="active">Active</SelectItem>
-              <SelectItem value="banned">Banned</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
 
-      <div className="flex space-x-2 mt-6">
-        <Button onClick={handleUpdateAuth} disabled={isLoadingUpdate}>
-          {isLoadingUpdate ? <Loader2 className="animate-spin" /> : null}
-          Update Authentication
-        </Button>
-        <Button variant="destructive" onClick={handleDeleteAuth} disabled={isLoadingDelete}>
-          {isLoadingDelete ? <Loader2 className="animate-spin" /> : null}
-          Delete Authentication
-        </Button>
+        <div className="flex gap-2 mt-6">
+          <button
+            className="btn btn-primary"
+            onClick={handleUpdateAuth}
+            disabled={isLoadingUpdate}
+          >
+            {isLoadingUpdate && <Loader2 className="animate-spin mr-2" />}
+            Update Authentication
+          </button>
+          <button
+            className="btn btn-error"
+            onClick={handleDeleteAuth}
+            disabled={isLoadingDelete}
+          >
+            {isLoadingDelete && <Loader2 className="animate-spin mr-2" />}
+            Delete Authentication
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,10 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { createAuth } from "./actions";
@@ -54,43 +50,60 @@ export function CreateAuthForm({ userId, initialEmail }: CreateAuthFormProps) {
   };
 
   return (
-    <>
-      <p className="mb-4">This user does not have authentication credentials. Create them below:</p>
+    <div className="card bg-base-100 shadow-xl">
+      <div className="card-body">
+        <h2 className="card-title">Create Authentication</h2>
+        <p className="text-base-content/70">This user does not have authentication credentials. Create them below:</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email address" />
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email address"
+            className="input input-bordered w-full"
+          />
         </div>
-        <div>
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            name="password"
+
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input
             type="password"
+            name="password"
             value={formData.password}
             onChange={handleChange}
             placeholder="Password"
+            className="input input-bordered w-full"
           />
         </div>
-      </div>
 
-      <div className="mb-4">
-        <Label htmlFor="userRole">Role</Label>
-        <Select value={formData.userRole} onValueChange={(value) => handleSelectChange("userRole", value)}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select role" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="contentWriter">Content Writer</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Role</span>
+          </label>
+          <select
+            className="select select-bordered w-full"
+            value={formData.userRole}
+            onChange={(e) => handleSelectChange("userRole", e.target.value)}
+          >
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+            <option value="contentWriter">Content Writer</option>
+          </select>
+        </div>
 
-      <Button onClick={handleCreateAuth} className="mt-4">
-        Create Authentication
-      </Button>
-    </>
+        <div className="card-actions justify-end mt-4">
+          <button onClick={handleCreateAuth} className="btn btn-primary">
+            Create Authentication
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
