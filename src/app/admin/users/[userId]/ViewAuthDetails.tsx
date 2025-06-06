@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Auth } from "../types";
 
 type ViewAuthDetailsProps = {
@@ -17,49 +16,61 @@ export function ViewAuthDetails({ auth, onEditModeToggle }: ViewAuthDetailsProps
   return (
     <>
       <div className="flex justify-end mb-4">
-        <Button variant="outline" onClick={onEditModeToggle}>
+        <button className="btn btn-outline" onClick={onEditModeToggle}>
           Edit Details
-        </Button>
+        </button>
       </div>
 
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <h3 className="font-medium text-sm text-gray-500">Email</h3>
-            <p className="text-gray-900">{auth.email}</p>
+          <div className="card bg-base-100 shadow-sm">
+            <div className="card-body p-4">
+              <h3 className="text-sm font-medium text-base-content/70">Email</h3>
+              <p className="text-base-content">{auth.email}</p>
+            </div>
           </div>
           
-          <div className="space-y-2">
-            <h3 className="font-medium text-sm text-gray-500">Role</h3>
-            <p className="text-gray-900 capitalize">{auth.userRole}</p>
+          <div className="card bg-base-100 shadow-sm">
+            <div className="card-body p-4">
+              <h3 className="text-sm font-medium text-base-content/70">Role</h3>
+              <p className="text-base-content capitalize">{auth.userRole}</p>
+            </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <h3 className="font-medium text-sm text-gray-500">Status</h3>
-            <p className="text-gray-900 capitalize">
-              <span className={`inline-block px-2 py-1 rounded-full text-xs ${auth.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                {auth.status}
-              </span>
-            </p>
+          <div className="card bg-base-100 shadow-sm">
+            <div className="card-body p-4">
+              <h3 className="text-sm font-medium text-base-content/70">Status</h3>
+              <p className="text-base-content capitalize">
+                <span className={`badge ${auth.status === 'active' ? 'badge-success' : 'badge-error'}`}>
+                  {auth.status}
+                </span>
+              </p>
+            </div>
           </div>
           
-          <div className="space-y-2">
-            <h3 className="font-medium text-sm text-gray-500">User ID</h3>
-            <p className="text-gray-900 text-sm font-mono">{auth.userId}</p>
+          <div className="card bg-base-100 shadow-sm">
+            <div className="card-body p-4">
+              <h3 className="text-sm font-medium text-base-content/70">User ID</h3>
+              <p className="text-base-content text-sm font-mono">{auth.userId}</p>
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-          <div className="space-y-2">
-            <h3 className="font-medium text-sm text-gray-500">Created At</h3>
-            <p className="text-gray-900">{formatDate(auth.createdAt)}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="card bg-base-100 shadow-sm">
+            <div className="card-body p-4">
+              <h3 className="text-sm font-medium text-base-content/70">Created At</h3>
+              <p className="text-base-content">{formatDate(auth.createdAt)}</p>
+            </div>
           </div>
           
-          <div className="space-y-2">
-            <h3 className="font-medium text-sm text-gray-500">Last Updated</h3>
-            <p className="text-gray-900">{formatDate(auth.updatedAt)}</p>
+          <div className="card bg-base-100 shadow-sm">
+            <div className="card-body p-4">
+              <h3 className="text-sm font-medium text-base-content/70">Last Updated</h3>
+              <p className="text-base-content">{formatDate(auth.updatedAt)}</p>
+            </div>
           </div>
         </div>
       </div>
