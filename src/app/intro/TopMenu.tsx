@@ -22,6 +22,7 @@ const TopMenu = () => {
     { name: "Pricing", path: "/intro/home#pricing" },
     { name: "Expertise", path: "/intro/home#expertise" },
     { name: "About", path: "/intro/about" },
+    { name: "Blogs", path: "/blogs" },
     { name: "Contact", path: "/intro/contact" },
   ];
 
