@@ -30,11 +30,11 @@ export default async function UserPage(props: { params: Promise<{ userId: string
           </div>
 
           <div className="grid gap-6">
-            <section className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <section className="">
               <UserDetails userId={userId} />
             </section>
 
-            <section className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <section className="">
               <AuthManage userId={userId} />
             </section>
           </div>

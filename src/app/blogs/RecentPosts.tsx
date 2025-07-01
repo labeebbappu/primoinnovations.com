@@ -20,7 +20,7 @@ export default function RecentPosts({ posts }: RecentPostsProps) {
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-200">
-                  <Link href={`/blog/${post.id}`}>
+                  <Link href={`/blogs/${post.id}`}>
                     {post.title}
                   </Link>
                 </h3>
